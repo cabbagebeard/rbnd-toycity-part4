@@ -25,11 +25,12 @@ class Udacidata
     all_array
   end
   
-  def first
-  end
-  
-  def first(n)
-    # first(5) or first (3)
+  def self.first(n = 1)
+    if n == 1
+      all.first
+    else
+      all.first(n)
+    end
   end
   
   def last
