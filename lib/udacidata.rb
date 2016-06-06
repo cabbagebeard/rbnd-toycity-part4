@@ -33,11 +33,12 @@ class Udacidata
     end
   end
   
-  def last
-  end
-  
-  def last(n)
-    # last(8) or last (2)
+  def self.last(n = 1)
+    if n == 1
+      all.last
+    else
+      all.last(n)
+    end
   end
   
   def destroy(id)
