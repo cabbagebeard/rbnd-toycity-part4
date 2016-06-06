@@ -4,5 +4,7 @@ require 'faker'
 # fake data for testing purposes
 
 def db_seed
-  # Your code goes here!
+  # Faker::Company.name
+  # Faker::Commerce.product_name
+  # Faker::Commerce.price
 end
