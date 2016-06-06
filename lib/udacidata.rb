@@ -50,8 +50,8 @@ class Udacidata
     # Product.find(5).update(brand: "Udacity")
   end
   
-  def find(id)
-    # ProductNotFoundError
+  def self.find(id)
+    all.find { |product| product.id == id }
   end
   
   def find_by_#{attribute}
