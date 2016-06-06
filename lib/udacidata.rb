@@ -3,20 +3,26 @@ require_relative 'errors'
 require 'csv'
 
 class Udacidata
- 
-  def all
-    #return an array of Product objects representing all the data in the database
-  end
   
-  def self.create(attributes = nil)
-  # If the object's data is already in the database
-  # create the object (Pass the attributes into new, and return the created object.)
-  # return the object
+  @@data_path = File.dirname(__FILE__) + "/../data/data.csv"
 
-  # If the object's data is not in the database
-  # create the object
-  # save the data in the database (Pass the attributes into new and save the object data to the database.)
-  # return the object
+	create_finder_methods :name, :brand
+
+  	def self.create(opts = {})
+  		new_prod = self.new(opts)
+  		CSV.open(@@data_path, "a+") do |csv|
+    		csv << [new_prod.id, new_prod.brand, new_prod.name, new_prod.price]
+  		end
+  		return new_prod
+  	end 
+ 
+  def self.all
+    all_array = []
+
+    CSV.foreach( @@data_path, headers: true ) do |prod|
+      all_array << self.new( id: prod["id"], brand: prod["brand"], name: prod["product"], price: prod["price"] )
+    end
+    all_array
   end
   
   def first
