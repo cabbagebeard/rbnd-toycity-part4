@@ -61,14 +61,8 @@ class Udacidata
     all.find { |product| product.id == id }
   end
   
-  def find_by_#{attribute}
-  # The methods Product.find_by_brand and Product.find_by_name should return a Product object for the first product in the database that has a matching brand or product name. 
-  # Note: Use metaprogramming techniques to define these methods. There are hints to help you get started in find_by.rb.
-  end
-  
-  def where
-    # where(brand: Lego)
-    # where(name: Voltron)
+  def self.where(opts = {})
+    self.all.select { |product| opts[:brand] == product.brand || opts[:name] == product.name }
   end
 
 end
