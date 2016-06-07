@@ -52,9 +52,10 @@ class Udacidata
     deleted
   end
 
-  def update
-    # should change the information for a given Product object, and save the new data to the database.
-    # Product.find(5).update(brand: "Udacity")
+  def update(opts ={})
+    @brand = opts[:brand] if opts[:brand]
+    @name = opts[:name] if opts[:name]
+    @price = opts[:price] if opts[:price]
   end
   
   def self.find(id)
