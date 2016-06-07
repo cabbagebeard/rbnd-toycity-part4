@@ -41,10 +41,17 @@ class Udacidata
     end
   end
   
-  def destroy(id)
-    # ProductNotFoundError
+  def self.destroy(id)
+    db = CSV.table(@@data_path)
+    deleted = find(id)
+    db.delete_if { |prod| prod[:id] == id }
+    
+    File.open(@@data_path, "w") do |f|
+      f.write(db.to_csv)
+     end
+    deleted
   end
-  
+
   def update
     # should change the information for a given Product object, and save the new data to the database.
     # Product.find(5).update(brand: "Udacity")
