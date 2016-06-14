@@ -56,6 +56,8 @@ class Udacidata
     @brand = opts[:brand] if opts[:brand]
     @name = opts[:name] if opts[:name]
     @price = opts[:price] if opts[:price]
+    Product.destroy(@id)
+    Product.create(id: @id, brand: @brand, name: @name, price: @price)
   end
   
   def self.find(id)
