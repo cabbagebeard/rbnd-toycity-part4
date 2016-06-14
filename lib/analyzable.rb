@@ -1,35 +1,60 @@
 module Analyzable
-
-  def count_by_brand(products)
-    # should accept an array of Product objects and return a hash with inventory counts, organized by brand.
-    # Analyzable::count_by_brand(Product.all)
-    #   =>  {"Lego"=>3, "Fisher-Price"=>2, "Nintendo"=>1, "Crayola"=>2, "Hasbro"=>2}
-  end
-  
-  def count_by_name(products)
-    # just like count_by_brand but by name
-  end
   
   def average_price(products)
-    # Analyzable::average_price(Product.all)
-    #   => 51.44
+    total = 0
+    products.each do |product|
+      total += product.price.to_f
+    end
+    (total/products.length).round(2)
   end
   
-  def print_report
-    # Analyzable::print_report(Product.all)
-    #   => Average Price: $51.6
+  def count_by_brand(products)
+    brands = {}
     
-    # Inventory by Brand:
-    # - Hasbro: 5
-    #- Fisher-Price: 1
-    #- Crayola: 2
-    #- Lego: 2
-  
-    # Inventory by Name:
-    #- Incredible Copper Bag: 3
-    #- Synergistic Rubber Car: 2
-    #- Aerodynamic Marble Computer: 3
-    #- Synergistic Wooden Chair: 2
+    products.each do |product|
+      if brands.keys.include?(product.brand)
+        brands[product.brand] += 1
+      else
+        brands[product.brand] = 1
+      end
+      return brands
+    end
   end
-
+    
+  def count_by_name(products)
+    names = {}
+    
+    products.each do |product|
+      if names.keys.include?(product.name)
+        names[product.name] += 1
+      else
+        names[product.name] = 1
+      end
+      return names
+    end
+  end
+  
+  def print_report(products)
+    stars = "*" * 15
+    puts "Inventory by brand:"
+    puts
+    count_by_brand(products).each do |k,v|
+      puts "#{k}: #{v}"
+    end
+    puts
+    puts stars
+    puts "Inventory by name:"
+    puts
+    count_by_name(products).each do |k,v|
+      puts "#{k}: #{v}"
+    end
+    puts
+    puts stars
+    puts "Average price:"
+    puts
+    puts "$#{average_price(products)}"
+    return average_price(products).to_s
+    # Had to add that to make tests pass
+  end
+    
 end
