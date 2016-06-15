@@ -1,11 +1,7 @@
 module Analyzable
   
   def average_price(products)
-    total = 0
-    products.each do |product|
-      total += product.price.to_f
-    end
-    (total/products.length).round(2)
+    (products.inject(0){ |sum, product| sum + product.price.to_f}/products.size).round(2)
   end
   
   def count_by_brand(products)
@@ -17,8 +13,8 @@ module Analyzable
       else
         brands[product.brand] = 1
       end
-      return brands
     end
+    return brands
   end
     
   def count_by_name(products)
@@ -30,8 +26,8 @@ module Analyzable
       else
         names[product.name] = 1
       end
-      return names
     end
+    return names
   end
   
   def print_report(products)
@@ -52,9 +48,8 @@ module Analyzable
     puts stars
     puts "Average price:"
     puts
-    puts "$#{average_price(products)}"
-    return average_price(products).to_s
-    # Had to add that to make tests pass
+    output = "$"
+    output += "#{average_price(products)}"
   end
     
 end
