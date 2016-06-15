@@ -57,9 +57,11 @@ class Udacidata
   end
   
   def self.find(id)
-    all.find { |product| product.id == id }
-    rescue
-       raise ProductNotFoundError, "Cannot find product with an id of #{id}"
+    found = all.find { |product| product.id == id }
+    unless found
+      raise ProductNotFoundError, "Cannot find product with an id of #{id}"
+    end
+    return found
   end
   
   def self.where(opts = {})
