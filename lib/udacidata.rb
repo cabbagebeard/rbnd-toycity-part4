@@ -25,20 +25,16 @@ class Udacidata
     all_array
   end
   
-  def self.first(n = 1)
-    if n == 1
-      all.first
-    else
-      all.first(n)
-    end
+  def self.take_items(from, n=nil)
+    n ? all.send(from, n) : all.public_send(from)
   end
   
-  def self.last(n = 1)
-    if n == 1
-      all.last
-    else
-      all.last(n)
-    end
+  def self.first(n=nil)
+    take_items(:first, n)
+  end
+  
+  def self.last(n=nil)
+    take_items(:last, n)
   end
   
   def self.destroy(id)
@@ -69,5 +65,4 @@ class Udacidata
   def self.where(opts = {})
     self.all.select { |product| opts[:brand] == product.brand || opts[:name] == product.name }
   end
-
 end
