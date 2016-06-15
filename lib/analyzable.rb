@@ -51,5 +51,4 @@ module Analyzable
     output = "$"
     output += "#{average_price(products)}"
   end
-    
 end
